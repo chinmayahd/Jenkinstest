@@ -17,12 +17,6 @@ node {
     println SFDC_HOST
     println CONNECTED_APP_CONSUMER_KEY
     println 'Start the job'
-    def toolbelt = tool 'toolbelt'
-
-   // stage('checkout source') {
-        // when running in multi-branch job, one must issue this command
-       //checkout scm
-   //}
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Deploye Code') {
@@ -32,13 +26,8 @@ node {
             if (rc != 0) { error 'hub org authorization failed' }
 
 			println rc
+			rmsg = bat returnStdout: true, script: "sfdx force:package:install -i 04t1K000002ZqUt  -u ${HUB_ORG}"
 			
-			// need to pull out assigned username
-			if (isUnix()) {
-				rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
-			}else{
-			   rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
-			}
 			  
             printf rmsg
             println('Hello from a Job DSL script!')
