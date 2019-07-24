@@ -16,12 +16,13 @@ node {
     println HUB_ORG
     println SFDC_HOST
     println CONNECTED_APP_CONSUMER_KEY
+    println 'Start the job'
     def toolbelt = tool 'toolbelt'
 
-    //stage('checkout source') {
+    stage('checkout source') {
         // when running in multi-branch job, one must issue this command
-       // checkout scm
-   // }
+       checkout scm
+   }
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
         stage('Deploye Code') {
