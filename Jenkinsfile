@@ -26,11 +26,11 @@ node {
             if (rc != 0) { error 'hub org authorization failed' }
 
 			println rc
-			rmsg = bat returnStdout: true, script: "sfdx force:package:install -i 04t1K000002ZqUt  -u ${HUB_ORG}"
+			rmsg = bat returnStdout: true, script: "sfdx force:package:install --package 04t1K000002ZqUt  -u ${HUB_ORG}"
 			
 			  
             printf rmsg
-            println('Hello from a Job DSL script!')
+            println('Package installation completed')
             println(rmsg)
         }
     }
