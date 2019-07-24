@@ -10,7 +10,9 @@ node {
     def SFDC_HOST = env.SFDC_HOST_DH
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
-
+    def PACKAGE_KEY = env.SF_PACKAGE_KEY
+    def PACKAGE_ID = env.SF_PACKAGE_ID
+	
     println 'KEY IS' 
     println JWT_KEY_CRED_ID
     println HUB_ORG
@@ -26,7 +28,7 @@ node {
             if (rc != 0) { error 'hub org authorization failed' }
 
 			println rc
-			rmsg = bat returnStdout: true, script: "sfdx force:package:install --package 04t1K000002ZqUt  --installationkey \"Sk!enceSFS!9\" -u ${HUB_ORG}"
+			rmsg = bat returnStdout: true, script: "sfdx force:package:install --package ${PACKAGE_ID}  --installationkey \" ${PACKAGE_KEY}\" -u ${HUB_ORG} --wait -1"
 			
 			  
             printf rmsg
