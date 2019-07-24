@@ -30,7 +30,6 @@ node {
 			
 			  
             printf rmsg
-            println('Package installation completed')
             println(rmsg)
         }
     }
